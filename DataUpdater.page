@@ -1,0 +1,35 @@
+<apex:page controller="Dataupdater" tabStyle="Field_Data_Transfer__tab">
+    <apex:form >
+        <apex:pageBlock mode="EDIT">
+            <!-- to show the exceptions, if any-->
+            <apex:pageMessages />
+            
+            <!-- sObject List-->
+            <apex:pageblocksection title="Object Selection">
+                <apex:selectList value="{!SelectedSObject}" size="1" label="Object">
+                    <apex:selectOptions value="{!SObjectList}"/>
+                </apex:selectList>
+                <apex:pageblocksectionItem >
+                    <apex:outputtext value=" "/>
+                    <apex:commandButton value="Get Object Fields" action="{!showFields}"/>
+                </apex:pageblocksectionItem>
+            </apex:pageblocksection>
+            
+            <apex:pageblocksection id="fieldList" rendered="{!not(isnull(SelectedSObject))}" title="Field Selection">
+                <!-- from field List-->
+                <apex:selectlist size="1" label="From" id="listfrom" value="{!fromField}">
+                    <apex:selectoptions value="{!fieldsofobject}"/>
+                </apex:selectlist>
+                
+                <!-- to field List-->
+                <apex:selectlist size="1" label="To" id="listto" value="{!toField}">
+                    <apex:selectoptions value="{!fieldsofobject}"/>
+                </apex:selectlist>
+            </apex:pageblocksection>
+            
+            <apex:pageBlockButtons location="bottom" rendered="{!not(isnull(SelectedSObject))}">
+                <apex:commandButton value="Copy Data" action="{!copydata}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
